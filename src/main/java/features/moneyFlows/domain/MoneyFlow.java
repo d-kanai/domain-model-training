@@ -10,6 +10,7 @@ public class MoneyFlow {
     private final UUID userId;
     private final int value;
 
+    @Deprecated
     private MoneyFlow(UUID id, int value) {
         this.id = id;
         this.userId = UUID.randomUUID();
@@ -42,6 +43,7 @@ public class MoneyFlow {
         return MoneyFlow.create__Old(-product.price());
     }
 
+    @Deprecated
     public static MoneyFlow reconstruct(UUID id, int value) {
         return new MoneyFlow(id, value);
     }
