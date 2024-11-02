@@ -4,7 +4,7 @@ import features.moneyFlows.application.ChargeMoneyUsecase;
 import features.moneyFlows.presentation.ChargeMoneyInput;
 import features.order.application.OrderCreateUsecase;
 import features.order.presentation.OrderCreateInput;
-import features.product.application.ProductCreateUsecase;
+import features.product.application.ProductCreateAsDraftUsecase;
 import features.product.application.ProductPublishUsecase;
 import features.product.domain.Product;
 import features.product.presentation.ProductCreateInput;
@@ -24,7 +24,7 @@ public class ProductSteps {
 
     public static void ユーザが商品をドラフトで登録() {
         ProductCreateInput input = new ProductCreateInput("book", 1000);
-        new ProductCreateUsecase().run(input);
+        new ProductCreateAsDraftUsecase().run(input);
     }
 
     public static void ユーザが商品を公開() {
@@ -62,7 +62,7 @@ public class ProductSteps {
     }
 
     public static void _5000円の商品が登録されている() {
-        new ProductCreateUsecase().run(new ProductCreateInput("book", 5000));
+        new ProductCreateAsDraftUsecase().run(new ProductCreateInput("book", 5000));
     }
 
     public static void 購入履歴一覧に商品が表示されている() {
