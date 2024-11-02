@@ -12,8 +12,4 @@ public class ChargeMoneyUsecase {
         MoneyFlow moneyFlow = MoneyFlow.charge(userId, input.getValue());
         new MoneyFlowRepository().save(moneyFlow);
     }
-    //old
-    public void run(ChargeMoneyInput input) {
-        run(UUID.randomUUID(), input);
-    }
 }

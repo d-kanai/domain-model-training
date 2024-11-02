@@ -33,7 +33,7 @@ public class ChargeMoneyUsecaseTest extends BaseTest {
         ChargeMoneyInput input = new ChargeMoneyInput(-1000);
         //when
         try {
-            new ChargeMoneyUsecase().run(input);
+            new ChargeMoneyUsecase().run(loginUser.id(), input);
         } catch(RuntimeException e) {
             assertEquals("マイナス額はチャージできません", e.getMessage());
             Records records = db.find("select * from moneyFlows");
