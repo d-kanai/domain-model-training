@@ -29,7 +29,8 @@ public class MoneyFlow {
         return MoneyFlow.create__New(userId, value);
     }
 
-    private static MoneyFlow create(int value) {
+    @Deprecated
+    private static MoneyFlow create__Old(int value) {
         return new MoneyFlow(UUID.randomUUID(), value);
     }
 
@@ -38,7 +39,7 @@ public class MoneyFlow {
     }
 
     public static MoneyFlow order(Product product) {
-        return MoneyFlow.create(-product.price());
+        return MoneyFlow.create__Old(-product.price());
     }
 
     public static MoneyFlow reconstruct(UUID id, int value) {
