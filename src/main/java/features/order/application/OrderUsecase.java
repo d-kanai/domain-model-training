@@ -9,7 +9,7 @@ import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 
-public class OrderCreateUsecase {
+public class OrderUsecase {
 
     public void run(OrderCreateInput input) {
         Product product = new ProductRepository().findById(input.getProductId());

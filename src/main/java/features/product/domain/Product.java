@@ -14,6 +14,10 @@ public class Product {
         this.status = Status.PUBLISHED;
     }
 
+    public boolean isDraft() {
+        return status == Status.DRAFT;
+    }
+
     public enum Status {
         DRAFT,
         PUBLISHED;
