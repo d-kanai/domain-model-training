@@ -10,6 +10,7 @@ public class PublishedProduct extends Product {
 
     //NOTE: 永続データからの再構成用途
     public static PublishedProduct reconstruct(UUID id, String name, Integer price, Status status) {
+        if (status != Status.PUBLISHED) throw new RuntimeException("invalid state");
         return new PublishedProduct(id, name, price, status);
     }
 

@@ -63,6 +63,9 @@ public class ProductSteps {
 
     public static void _5000円の商品が登録されている() {
         new ProductCreateAsDraftUsecase().run(new ProductCreateInput("book", 5000));
+        Records products = new SqliteDatabase().find("select * from products");
+        ProductPublishInput input = new ProductPublishInput(UUID.fromString((String) products.first().get("id")));
+        new ProductPublishUsecase().run(input);
     }
 
     public static void 購入履歴一覧に商品が表示されている() {
