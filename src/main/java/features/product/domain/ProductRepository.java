@@ -23,6 +23,9 @@ public class ProductRepository {
 
     public DraftProduct findDraftById(UUID productId) {
         Records records = db.find(String.format("select * from products where id = '%s'", productId));
+        if (records.first().get("status") == Product.Status.PUBLISHED.toString()) {
+            throw new RuntimeException("すでに公開済みです");
+        }
         Map record = records.first();
         return DraftProduct.reconstruct(
                 UUID.fromString((String) record.get("id")),
