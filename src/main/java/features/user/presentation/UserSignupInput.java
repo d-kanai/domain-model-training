@@ -1,4 +1,4 @@
-package features.user.application;
+package features.user.presentation;
 
 public class UserSignupInput {
     private final String email;

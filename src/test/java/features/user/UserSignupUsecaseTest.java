@@ -1,10 +1,6 @@
 package features.user;
 
-import features.product.ProductDataBuilder;
-import features.product.application.ProductPublishUsecase;
-import features.product.domain.Product;
-import features.product.presentation.ProductPublishInput;
-import features.user.application.UserSignupInput;
+import features.user.presentation.UserSignupInput;
 import features.user.application.UserSignupUsecase;
 import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
