@@ -13,8 +13,9 @@ public class MoneyFlowRepository {
     SqliteDatabase db = new SqliteDatabase();
 
     public void save(MoneyFlow moneyFlow) {
-        db.execute(String.format("insert into moneyFlows (id, value) values ('%s', '%d');",
+        db.execute(String.format("insert into moneyFlows (id, userId, value) values ('%s', '%s', '%d');",
                 moneyFlow.id(),
+                moneyFlow.userId(),
                 moneyFlow.value()
         ));
     }
@@ -25,7 +26,9 @@ public class MoneyFlowRepository {
         records.items.forEach(record -> {
             Map mapRecord = (Map) record;
             moneyFlowList.add(MoneyFlow.reconstruct
-                    (UUID.fromString((String) mapRecord.get("id")),
+                    (
+                            UUID.fromString((String) mapRecord.get("id")),
+                            UUID.fromString((String) mapRecord.get("userId")),
                             (Integer) mapRecord.get("value")
                     )
             );

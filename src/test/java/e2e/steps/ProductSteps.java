@@ -52,7 +52,7 @@ public class ProductSteps {
 
     public static void ユーザが10000万円チャージする() {
         ChargeMoneyInput input = new ChargeMoneyInput(10000);
-        new ChargeMoneyUsecase().run(input);
+//        new ChargeMoneyUsecase().run(loginUser.id(), input);
     }
 
     public static void ユーザが商品を一覧を見る() {

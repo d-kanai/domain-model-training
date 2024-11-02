@@ -8,7 +8,7 @@ public class User {
     private final Plan plan;
 
     public UUID id() {
-        return null;
+        return id;
     }
 
     public enum Plan {

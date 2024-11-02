@@ -7,34 +7,40 @@ import java.util.UUID;
 public class MoneyFlow {
 
     private final UUID id;
+    private final UUID userId;
     private final int value;
 
-    private MoneyFlow(UUID id, int value) {
+    private MoneyFlow(UUID id, UUID userId, int value) {
         this.id = id;
+        this.userId = userId;
         this.value = value;
     }
 
-    public static MoneyFlow charge(int value) {
+    public static MoneyFlow charge(UUID loginUserId, int value) {
         if (value < 0) {
             throw new RuntimeException("マイナス額はチャージできません");
         }
-        return MoneyFlow.create(value);
+        return MoneyFlow.create(loginUserId, value);
     }
 
-    private static MoneyFlow create(int value) {
-        return new MoneyFlow(UUID.randomUUID(), value);
+    private static MoneyFlow create(UUID loginUserId, int value) {
+        return new MoneyFlow(UUID.randomUUID(), loginUserId, value);
     }
 
-    public static MoneyFlow order(Product product) {
-        return MoneyFlow.create(-product.price());
+    public static MoneyFlow order(UUID userId, Product product) {
+        return MoneyFlow.create(userId, -product.price());
     }
 
-    public static MoneyFlow reconstruct(UUID id, int value) {
-        return new MoneyFlow(id, value);
+    public static MoneyFlow reconstruct(UUID id, UUID userId, int value) {
+        return new MoneyFlow(id, userId, value);
     }
 
     public UUID id() {
         return id;
+    }
+
+    public UUID userId() {
+        return userId;
     }
 
     public int value() {
