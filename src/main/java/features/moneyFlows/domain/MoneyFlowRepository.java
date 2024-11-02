@@ -26,7 +26,9 @@ public class MoneyFlowRepository {
         records.items.forEach(record -> {
             Map mapRecord = (Map) record;
             moneyFlowList.add(MoneyFlow.reconstruct
-                    (UUID.fromString((String) mapRecord.get("id")),
+                    (
+                            UUID.fromString((String) mapRecord.get("id")),
+                            UUID.fromString((String) mapRecord.get("userId")),
                             (Integer) mapRecord.get("value")
                     )
             );

@@ -5,6 +5,8 @@ import features.order.application.OrderUsecase;
 import features.order.presentation.OrderCreateInput;
 import features.product.ProductDataBuilder;
 import features.product.domain.Product;
+import features.user.UserDataBuilder;
+import features.user.domain.User;
 import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
 import shared.Records;
@@ -19,40 +21,45 @@ public class OrderUsecaseTest extends BaseTest {
     @Test
     void 購入が積まれる() {
         //given
+        User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(1000).please();
-        new MoneyFlowDataBuilder().value(1000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase().run(input);
+        new OrderUsecase().run(loginUser.id(), input);
         //then
         Records orders = db.find("select * from orders");
         assertEquals(1, orders.size());
         assertEquals(product.id().toString(), orders.first().get("productId"));
+        assertEquals(loginUser.id().toString(), orders.first().get("userId"));
     }
 
     @Test
     void お金が減る() {
         //given
+        User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(2000).please();
-        new MoneyFlowDataBuilder().value(2000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase().run(input);
+        new OrderUsecase().run(loginUser.id(), input);
         //then
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
         assertEquals(-2000, ((Map) moneyFlows.items.get(1)).get("value"));
+        assertEquals(loginUser.id().toString(), ((Map) moneyFlows.items.get(1)).get("userId"));
     }
 
     @Test
     void お金が足りないと購入できない() {
         //given
+        User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(2000).please();
-        new MoneyFlowDataBuilder().value(1999).please();
+        new MoneyFlowDataBuilder(loginUser.id()).value(1999).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase().run(input);
+            new OrderUsecase().run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records moneyFlows = db.find("select * from moneyFlows");
@@ -66,12 +73,13 @@ public class OrderUsecaseTest extends BaseTest {
     @Test
     void 非公開商品は買えない() {
         //given
+        User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(2000).status(Product.Status.DRAFT).please();
-        new MoneyFlowDataBuilder().value(2000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase().run(input);
+            new OrderUsecase().run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records orders = db.find("select * from orders");

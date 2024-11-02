@@ -10,13 +10,6 @@ public class MoneyFlow {
     private final UUID userId;
     private final int value;
 
-    @Deprecated
-    private MoneyFlow(UUID id, int value) {
-        this.id = id;
-        this.userId = UUID.randomUUID();
-        this.value = value;
-    }
-
     private MoneyFlow(UUID id, UUID userId, int value) {
         this.id = id;
         this.userId = userId;
@@ -27,25 +20,20 @@ public class MoneyFlow {
         if (value < 0) {
             throw new RuntimeException("マイナス額はチャージできません");
         }
-        return MoneyFlow.create__New(userId, value);
+        return MoneyFlow.create(userId, value);
     }
 
-    @Deprecated
-    private static MoneyFlow create__Old(int value) {
-        return new MoneyFlow(UUID.randomUUID(), value);
-    }
 
-    private static MoneyFlow create__New(UUID userId, int value) {
+    private static MoneyFlow create(UUID userId, int value) {
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
-    public static MoneyFlow order(Product product) {
-        return MoneyFlow.create__Old(-product.price());
+    public static MoneyFlow order(UUID loginUserId, Product product) {
+        return MoneyFlow.create(loginUserId, -product.price());
     }
 
-    @Deprecated
-    public static MoneyFlow reconstruct(UUID id, int value) {
-        return new MoneyFlow(id, value);
+    public static MoneyFlow reconstruct(UUID id, UUID userId, int value) {
+        return new MoneyFlow(id, userId, value);
     }
 
     public UUID id() {
