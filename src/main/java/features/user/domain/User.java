@@ -3,16 +3,20 @@ package features.user.domain;
 import java.util.UUID;
 
 public class User {
-    private final UUID uuid;
+    private final UUID id;
     private final String email;
     private final Plan plan;
+
+    public UUID id() {
+        return null;
+    }
 
     public enum Plan {
         NORMAL,
     }
 
-    public User(UUID uuid, String email, Plan plan) {
-        this.uuid = uuid;
+    public User(UUID id, String email, Plan plan) {
+        this.id = id;
         this.email = email;
         this.plan = plan;
     }
