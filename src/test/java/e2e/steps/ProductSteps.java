@@ -9,6 +9,9 @@ import features.product.application.ProductPublishUsecase;
 import features.product.domain.Product;
 import features.product.presentation.ProductCreateInput;
 import features.product.presentation.ProductPublishInput;
+import features.user.application.UserSignupUsecase;
+import features.user.domain.User;
+import features.user.presentation.UserSignupInput;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -18,8 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductSteps {
 
+    static private User loginUser;
+
 
     public static void ユーザが新規登録してログイン() {
+        UserSignupInput input = new UserSignupInput("kanai@test.com");
+        loginUser = new UserSignupUsecase().run(input);
     }
 
     public static void ユーザが商品をドラフトで登録() {
@@ -52,7 +59,7 @@ public class ProductSteps {
 
     public static void ユーザが10000万円チャージする() {
         ChargeMoneyInput input = new ChargeMoneyInput(10000);
-        new ChargeMoneyUsecase().run(input);
+        new ChargeMoneyUsecase().run(loginUser.id(), input);
     }
 
     public static void ユーザが商品を一覧を見る() {
