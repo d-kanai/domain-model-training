@@ -15,7 +15,7 @@ public class OrderUsecase {
 
     public void run(UUID loginUserId, OrderCreateInput input) {
         PublishedProduct product = new ProductRepository().findPublishedById(input.getProductId());
-        MoneyFlows moneyFlows = new MoneyFlowRepository().findAll();
+        MoneyFlows moneyFlows = new MoneyFlowRepository().findByUserId(loginUserId);
 
         Ordered ordered = new OrderFactory(loginUserId, moneyFlows, product).create();
 

@@ -54,8 +54,10 @@ public class OrderUsecaseTest extends BaseTest {
     void お金が足りないと購入できない() {
         //given
         User loginUser = new UserDataBuilder().please();
+        User anotherUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(2000).please();
         new MoneyFlowDataBuilder(loginUser.id()).value(1999).please();
+        new MoneyFlowDataBuilder(anotherUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
@@ -63,7 +65,7 @@ public class OrderUsecaseTest extends BaseTest {
         } catch (RuntimeException e) {
             //then
             Records moneyFlows = db.find("select * from moneyFlows");
-            assertEquals(1, moneyFlows.size());
+            assertEquals(2, moneyFlows.size());
             assertEquals("お金が足りません", e.getMessage());
             return;
         }
