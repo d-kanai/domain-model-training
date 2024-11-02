@@ -6,7 +6,6 @@ import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
 import features.order.domain.Ordered;
 import features.order.presentation.OrderCreateInput;
-import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.domain.PublishedProduct;
 
