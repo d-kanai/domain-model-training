@@ -13,8 +13,9 @@ public class MoneyFlowRepository {
     SqliteDatabase db = new SqliteDatabase();
 
     public void save(MoneyFlow moneyFlow) {
-        db.execute(String.format("insert into moneyFlows (id, value) values ('%s', '%d');",
+        db.execute(String.format("insert into moneyFlows (id, userId, value) values ('%s', '%s', '%d');",
                 moneyFlow.id(),
+                moneyFlow.userId(),
                 moneyFlow.value()
         ));
     }

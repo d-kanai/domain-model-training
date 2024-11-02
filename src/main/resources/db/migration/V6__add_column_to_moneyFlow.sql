@@ -1,0 +1,1 @@
+ALTER TABLE moneyFlows ADD COLUMN userId TEXT;
