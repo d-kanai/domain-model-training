@@ -64,7 +64,7 @@ public class OrderUsecaseTest extends BaseTest {
     }
 
     @Test
-    void 非公開商品は変えない() {
+    void 非公開商品は買えない() {
         //given
         Product product = new ProductDataBuilder().price(2000).status(Product.Status.DRAFT).please();
         new MoneyFlowDataBuilder().value(2000).please();
