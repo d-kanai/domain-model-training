@@ -12,8 +12,8 @@ public class ProductRepository {
     public void save(Product product) {
         db.execute(String.format(
                 "insert into products (id, name, price, status) values ('%s', '%s', %d, '%s') " +
-                        "ON CONFLICT(id) DO " +
-                        "UPDATE SET price = excluded.price, name = excluded.name, status = excluded.status;",
+                "ON CONFLICT(id) DO " +
+                "UPDATE SET price = excluded.price, name = excluded.name, status = excluded.status;",
                 product.id(),
                 product.name(),
                 product.price(),
