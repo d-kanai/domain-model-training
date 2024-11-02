@@ -9,7 +9,7 @@ public class MoneyFlowDataBuilder {
     private int value = 1000;
 
     public MoneyFlow please() {
-        UUID userId = UUID.fromString("aa");
+        UUID userId = UUID.randomUUID();
         MoneyFlow moneyFlow = MoneyFlow.charge(userId, value);
         new MoneyFlowRepository().save(moneyFlow);
         return moneyFlow;

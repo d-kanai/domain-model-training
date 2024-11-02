@@ -19,7 +19,7 @@ public class OrderFactory {
     public Ordered create() {
         if (moneyFlows.sum() < product.price()) throw new RuntimeException("お金が足りません");
         Order order = Order.create(product);
-        MoneyFlow moneyFlow = MoneyFlow.order(UUID.fromString("userId"), product);
+        MoneyFlow moneyFlow = MoneyFlow.order(UUID.randomUUID(), product);
         return new Ordered(order, moneyFlow);
     }
 }
