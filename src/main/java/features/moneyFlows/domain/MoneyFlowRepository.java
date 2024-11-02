@@ -20,13 +20,15 @@ public class MoneyFlowRepository {
         ));
     }
 
-    public MoneyFlows findAll() {
-        Records records = db.find("select * from moneyFlows");
+    public MoneyFlows findByUserId(UUID loginUserId) {
+        Records records = db.find(String.format("select * from moneyFlows where userId = '%s'", loginUserId.toString()));
         List<MoneyFlow> moneyFlowList = new ArrayList<>();
         records.items.forEach(record -> {
             Map mapRecord = (Map) record;
             moneyFlowList.add(MoneyFlow.reconstruct
-                    (UUID.fromString((String) mapRecord.get("id")),
+                    (
+                            UUID.fromString((String) mapRecord.get("id")),
+                            UUID.fromString((String) mapRecord.get("userId")),
                             (Integer) mapRecord.get("value")
                     )
             );

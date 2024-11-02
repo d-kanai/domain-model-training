@@ -10,7 +10,7 @@ public class ProductFeatureTest extends BaseTest {
 
     @Test
     void ユーザが商品を登録する() {
-//        ユーザが新規登録してログイン();
+        ユーザが新規登録してログイン();
         ユーザが商品をドラフトで登録();
         ユーザが商品を公開();
         商品が公開して登録されていること();
