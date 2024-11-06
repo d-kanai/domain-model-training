@@ -61,6 +61,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>9.16.0</version>
                 <configuration>
+                    <cleanDisabled>false</cleanDisabled>
                     <url>jdbc:sqlite:sqlite.db</url>
                     <user></user>
                     <password></password>
